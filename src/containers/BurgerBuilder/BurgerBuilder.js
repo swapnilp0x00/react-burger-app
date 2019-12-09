@@ -8,8 +8,8 @@ class BurgerBuilder extends Component {
         ingredients: {
             salad: 1,
             bacon: 1,
-            meat: 1,
-            cheese: 1
+            meat: 2,
+            cheese: 2
         }
     }
     render() {
