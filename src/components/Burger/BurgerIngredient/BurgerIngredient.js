@@ -5,7 +5,6 @@ import classes from './BurgerIngredient.css';
 
 const burgerIngredient = props => {
   let ingredient = null;
-  console.log(props);
   switch (props.type) {
     case 'burger-bottom':
       ingredient = <div className={classes.BreadBottom}></div>;
@@ -33,7 +32,6 @@ const burgerIngredient = props => {
     default:
       break;
   }
-  console.log(ingredient)
   return ingredient;
 };
 
