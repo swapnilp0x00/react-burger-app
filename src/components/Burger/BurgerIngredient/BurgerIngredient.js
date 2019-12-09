@@ -5,12 +5,12 @@ import classes from './BurgerIngredient.css';
 
 const burgerIngredient = props => {
   let ingredient = null;
-
+  console.log(props);
   switch (props.type) {
-    case 'bread-bottom':
+    case 'burger-bottom':
       ingredient = <div className={classes.BreadBottom}></div>;
       break;
-    case 'bread-top':
+    case 'burger-top':
       ingredient = (
         <div className={classes.BreadTop}>
           <div className={classes.Seed1}></div>
@@ -18,26 +18,27 @@ const burgerIngredient = props => {
         </div>
       );
       break;
-    case 'bread-meat':
+    case 'burger-meat':
       ingredient = <div className={classes.Meat}></div>;
       break;
-    case 'bread-cheese':
+    case 'burger-cheese':
       ingredient = <div className={classes.Cheese}></div>;
       break;
-    case 'bread-salad':
+    case 'burger-salad':
       ingredient = <div className={classes.Salad}></div>;
       break;
-    case 'bread-bacon':
+    case 'burger-bacon':
       ingredient = <div className={classes.Bacon}></div>;
       break;
     default:
       break;
   }
+  console.log(ingredient)
   return ingredient;
 };
 
-burgerIngredient.PropTypes = {
-    type: PropTypes.string
-}
+burgerIngredient.propTypes = {
+  type: PropTypes.string.isRequired
+};
 
 export default burgerIngredient;
