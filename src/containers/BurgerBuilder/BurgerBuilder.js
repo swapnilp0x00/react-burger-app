@@ -54,16 +54,20 @@ class BurgerBuilder extends Component {
     }
 
     render() {
-        const disabledInfo ={
+        const disabledInfo = {
             ...this.state.ingredients
         }
         for (const key in disabledInfo) {
             disabledInfo[key] = disabledInfo[key] <= 0
         }
+        const canPurchase = Object.keys(this.state.ingredients).map(i => this.state.ingredients[i]).some(i => i > 0);
+        
         return (
         <Aux>
+            <p>{canPurchase}</p>
             <Burger ingredients={this.state.ingredients}/>
-            <BuildControls 
+            <BuildControls
+                canPurchase={canPurchase} 
                 price={this.state.totalPrice}
                 disabledInfo={disabledInfo}
                 ingredientAdded={this.addIngredient}
