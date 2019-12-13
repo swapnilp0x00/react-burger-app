@@ -3,6 +3,8 @@ import Aux from '../../HOC/Aux';
 
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls'; 
+import Modal from "../../components/UI/Modal/Modal";
+import OrderSummary from "../../components/Burger/OrderSummary/OrderSummary";
 
 const INGREDIENT_PRICES = {
     salad: 1,
@@ -18,7 +20,8 @@ class BurgerBuilder extends Component {
             meat: 0,
             cheese: 0
         },
-        totalPrice: 4
+        totalPrice: 4,
+        purchasing: false
     }
 
     addIngredient = (type) => {
@@ -53,20 +56,28 @@ class BurgerBuilder extends Component {
         });
     }
 
+    purchasehandler = () => {
+        this.setState({purchasing: true});
+    }
+
     render() {
+        // Derive disabled infor from state
         const disabledInfo = {
             ...this.state.ingredients
         }
         for (const key in disabledInfo) {
             disabledInfo[key] = disabledInfo[key] <= 0
         }
+        // Derive canPurchase from state
         const canPurchase = Object.keys(this.state.ingredients).map(i => this.state.ingredients[i]).some(i => i > 0);
-        
+
         return (
         <Aux>
-            <p>{canPurchase}</p>
+            <Modal show={this.state.purchasing}><OrderSummary ingredients={this.state.ingredients}></OrderSummary></Modal>
             <Burger ingredients={this.state.ingredients}/>
             <BuildControls
+                ordered={this.purchasehandler}
+                purchasing={this.state.purchasing}
                 canPurchase={canPurchase} 
                 price={this.state.totalPrice}
                 disabledInfo={disabledInfo}
