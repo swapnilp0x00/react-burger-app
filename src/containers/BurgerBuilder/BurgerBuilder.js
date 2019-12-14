@@ -60,6 +60,11 @@ class BurgerBuilder extends Component {
         this.setState({purchasing: true});
     }
 
+    purchaseCancelHandler = () => {
+        console.log('AAA');
+        this.setState({purchasing: false});
+    }
+
     render() {
         // Derive disabled infor from state
         const disabledInfo = {
@@ -73,7 +78,9 @@ class BurgerBuilder extends Component {
 
         return (
         <Aux>
-            <Modal show={this.state.purchasing}><OrderSummary ingredients={this.state.ingredients}></OrderSummary></Modal>
+            <Modal show={this.state.purchasing} modalClosed={this.purchaseCancelHandler}>
+                <OrderSummary ingredients={this.state.ingredients}></OrderSummary>
+            </Modal>
             <Burger ingredients={this.state.ingredients}/>
             <BuildControls
                 ordered={this.purchasehandler}
