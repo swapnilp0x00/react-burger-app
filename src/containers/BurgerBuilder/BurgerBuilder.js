@@ -20,16 +20,19 @@ class BurgerBuilder extends Component {
     ingredients: null,
     totalPrice: 4,
     purchasing: false,
-    isLoading: false
+    isLoading: false,
+    error: null
   };
 
   componentDidMount() {
     axios.get('/ingredients.json').then(response => {
       console.log(response);
       this.setState({ ingredients: response.data });
+    }).catch(err => {
+      this.setState({error: err});
     });
   }
-
+  
   addIngredient = type => {
     const oldCount = this.state.ingredients[type];
     const newCount = oldCount + 1;
@@ -106,7 +109,7 @@ class BurgerBuilder extends Component {
     }
 
     let orderSummary = null;
-    let burger = <Spinner />;
+    let burger = this.state.error ? 'Error in Fetching Ingredients' : <Spinner />;
     if (this.state.ingredients) {
       // Derive canPurchase from state
       const canPurchase = Object.keys(this.state.ingredients)
